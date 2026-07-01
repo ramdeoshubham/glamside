@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
-import { ShopContext } from "../context/ShopContext";
-import CartTotal from "../components/CartTotal";
+"use client";
+import React, { useContext, useState, useEffect } from "react";
+import { ShopContext } from "../../context/ShopContext";
+import CartTotal from "../../components/CartTotal";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { FaStripe } from "react-icons/fa";
 import { SiRazorpay } from "react-icons/si";
 
 const PlaceOrder = () => {
@@ -33,7 +33,7 @@ const PlaceOrder = () => {
 
   const initPay = (order) => {
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       amount: order.amount,
       currency: order.currency,
       name: "Order Payment",
@@ -41,7 +41,6 @@ const PlaceOrder = () => {
       order_id: order.id,
       receipt: order.receipt,
       handler: async (response) => {
-        console.log(response);
         try {
           const { data } = await axios.post(
             backendUrl + "/api/order/verifyRazorpay",
@@ -132,10 +131,10 @@ const PlaceOrder = () => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t"
+      className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t border-gray-300 dark:border-gray-700"
     >
       {/* ------------- Left Side: Delivery Information ------------- */}
-      <div className="flex flex-col gap-4 w-full max-w-120">
+      <div className="flex flex-col gap-4 w-full max-w-[480px]">
         <div className="text-xl sm:text-2xl my-3">
           <h3 className="text-2xl mb-7">DELIVERY INFORMATION</h3>
         </div>
@@ -145,7 +144,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="firstName"
             value={formData.firstName}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            className="border border-gray-300 dark:border-gray-700 bg-transparent rounded py-1.5 px-3.5 w-full outline-none"
             type="text"
             placeholder="First name"
           />
@@ -154,7 +153,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="lastName"
             value={formData.lastName}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            className="border border-gray-300 dark:border-gray-700 bg-transparent rounded py-1.5 px-3.5 w-full outline-none"
             type="text"
             placeholder="Last name"
           />
@@ -164,7 +163,7 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           name="email"
           value={formData.email}
-          className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+          className="border border-gray-300 dark:border-gray-700 bg-transparent rounded py-1.5 px-3.5 w-full outline-none"
           type="email"
           placeholder="Email address"
         />
@@ -173,7 +172,7 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           name="street"
           value={formData.street}
-          className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+          className="border border-gray-300 dark:border-gray-700 bg-transparent rounded py-1.5 px-3.5 w-full outline-none"
           type="text"
           placeholder="Street"
         />
@@ -183,7 +182,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="city"
             value={formData.city}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            className="border border-gray-300 dark:border-gray-700 bg-transparent rounded py-1.5 px-3.5 w-full outline-none"
             type="text"
             placeholder="City"
           />
@@ -192,7 +191,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="state"
             value={formData.state}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            className="border border-gray-300 dark:border-gray-700 bg-transparent rounded py-1.5 px-3.5 w-full outline-none"
             type="text"
             placeholder="State"
           />
@@ -203,7 +202,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="zipcode"
             value={formData.zipcode}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            className="border border-gray-300 dark:border-gray-700 bg-transparent rounded py-1.5 px-3.5 w-full outline-none"
             type="number"
             placeholder="Zipcode"
           />
@@ -212,7 +211,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="country"
             value={formData.country}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            className="border border-gray-300 dark:border-gray-700 bg-transparent rounded py-1.5 px-3.5 w-full outline-none"
             type="text"
             placeholder="Country"
           />
@@ -222,7 +221,7 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           name="phone"
           value={formData.phone}
-          className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+          className="border border-gray-300 dark:border-gray-700 bg-transparent rounded py-1.5 px-3.5 w-full outline-none"
           type="number"
           placeholder="Phone"
         />
@@ -239,19 +238,8 @@ const PlaceOrder = () => {
           {/* --------------- Payment Method Selection --------------- */}
           <div className="flex gap-3 flex-col lg:flex-row">
             <div
-              onClick={() => setMethod("stripe")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
-            >
-              <p
-                className={`min-w-3.5 h-3.5 border rounded-full ${
-                  method === "stripe" ? "bg-green-400" : ""
-                }`}
-              ></p>
-              <FaStripe size={35} />
-            </div>
-            <div
               onClick={() => setMethod("razorpay")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
+              className="flex items-center gap-3 border border-gray-300 dark:border-gray-700 p-2 px-3 cursor-pointer"
             >
               <p
                 className={`min-w-3.5 h-3.5 border rounded-full ${
@@ -263,7 +251,7 @@ const PlaceOrder = () => {
             </div>
             <div
               onClick={() => setMethod("cod")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
+              className="flex items-center gap-3 border border-gray-300 dark:border-gray-700 p-2 px-3 cursor-pointer"
             >
               <p
                 className={`min-w-3.5 h-3.5 border rounded-full ${
@@ -277,7 +265,7 @@ const PlaceOrder = () => {
           <div className="w-full text-end mt-8">
             <button
               type="submit"
-              className="bg-black text-white  dark:bg-white dark:text-black px-16 py-3 text-sm"
+              className="bg-black text-white dark:bg-white dark:text-black px-16 py-3 text-sm"
             >
               PLACE ORDER
             </button>

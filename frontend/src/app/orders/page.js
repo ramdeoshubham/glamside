@@ -1,5 +1,6 @@
+"use client";
 import React, { useContext, useEffect, useState } from "react";
-import { ShopContext } from "../context/ShopContext";
+import { ShopContext } from "../../context/ShopContext";
 import axios from "axios";
 
 const Orders = () => {
@@ -43,13 +44,13 @@ const Orders = () => {
   }, [token]);
 
   return (
-    <>
+    <div className="min-h-screen">
       {token ? (orderData.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-gray-500 text-center">
             <p>You don't have any previous order, please order Something first.</p>
           </div>
         ) :
-        <div className="border-t pt-16">
+        <div className="border-t border-gray-300 dark:border-gray-700 pt-16">
           <div className="text-2xl">
             <h3 className="text-2xl mb-7">MY ORDERS</h3>
           </div>
@@ -58,10 +59,10 @@ const Orders = () => {
             {orderData.map((item, index) => (
               <div
                 key={index}
-                className="py-4 border-t border-b text-gray-700 dark:text-gray-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+                className="py-4 border-t border-b border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
               >
                 <div className="flex items-start gap-6 text-sm">
-                  <img className="w-16 sm:w-20" src={item.image} alt="" />
+                  <img className="w-16 sm:w-20" src={Array.isArray(item.image) ? item.image[0] : item.image} alt="" />
                   <div>
                     <p className="sm:text-base font-medium">{item.name}</p>
                     <div className="flex items-center gap-3 mt-1 text-base text-gray-700 dark:text-gray-200">
@@ -70,7 +71,7 @@ const Orders = () => {
                         {item.price}
                       </p>
                       <p>Quantity: {item.quantity}</p>
-                      <p>Tags: {item.meta[0]}</p>
+                      <p>Tags: {item.meta?.[0]}</p>
                     </div>
                     <p className="mt-1">
                       Date: <span>{new Date(item.date).toDateString()}</span>
@@ -87,7 +88,7 @@ const Orders = () => {
                   </div>
                   <button
                     onClick={loadOrderData}
-                    className="border px-4 py-2 text-sm font-medium rounded-sm"
+                    className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-sm font-medium rounded-sm"
                   >
                     Track Order
                   </button>
@@ -101,7 +102,7 @@ const Orders = () => {
           <p>Please login to view your orders ♡</p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

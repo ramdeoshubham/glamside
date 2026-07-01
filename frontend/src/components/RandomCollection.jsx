@@ -1,17 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ShopContext } from "../context/ShopContext";
+import React from "react";
 import ProductItem from "./ProductItem";
 
-const RandomCollection = () => {
-  const { products } = useContext(ShopContext);
-  const [randomProducts, setRandomProducts] = useState([]);
-
-  useEffect(() => {
-    if (products.length > 0) {
-      const shuffled = [...products].sort(() => 0.5 - Math.random());
-      setRandomProducts(shuffled.slice(0, 4)); // same count as RelatedProducts
-    }
-  }, [products]);
+const RandomCollection = ({ products }) => {
+  const randomProducts = products.length > 0 
+    ? [...products].sort(() => 0.5 - Math.random()).slice(0, 4)
+    : [];
 
   return (
     <div className="my-24">

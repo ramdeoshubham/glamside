@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { GoSun } from "react-icons/go";
 import { FaRegMoon } from "react-icons/fa";

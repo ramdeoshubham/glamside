@@ -1,7 +1,9 @@
+"use client";
+
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 export const ShopContext = createContext();
 
@@ -9,7 +11,7 @@ const ShopContextProvider = (props) => {
   // ---------------- Constants ----------------
   const currency = "$";
   const delivery_fee = 10;
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   // ---------------- State ----------------
   const [search, setSearch] = useState("");
@@ -18,7 +20,7 @@ const ShopContextProvider = (props) => {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [token, setToken] = useState("");
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   // ---------------- Cart Actions ----------------
 
@@ -40,7 +42,7 @@ const ShopContextProvider = (props) => {
           { itemId },
           { headers: { token } }
         );
-        toast("Added to your cart", {autoClose:500,pauseOnHover:false,closeOnClick:true})
+        toast("Added to your cart", { autoClose: 500, pauseOnHover: false, closeOnClick: true });
       } catch (error) {
         console.log(error);
         toast.error(error.message);
@@ -197,10 +199,6 @@ const ShopContextProvider = (props) => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
-
   // ---------------- Context Value ----------------
 
   const value = {
@@ -214,7 +212,8 @@ const ShopContextProvider = (props) => {
     getCartCount,
     updateQuantity,
     getCartAmount,
-    navigate,
+    navigate: router.push, // Mapping navigate to router.push
+    router, // Also exposing router in case
     backendUrl,
     setToken,
     token,

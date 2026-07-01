@@ -1,19 +1,19 @@
+"use client";
 import React, { useContext, useEffect, useState } from "react";
-import { ShopContext } from "../context/ShopContext";
-import ProductItem from "../components/ProductItem";
-import SearchBar from "../components/SearchBar";
+import { ShopContext } from "../../context/ShopContext";
+import ProductItem from "../../components/ProductItem";
+import SearchBar from "../../components/SearchBar";
 import { IoIosArrowForward } from "react-icons/io";
 
-
-const Collection = () => {
-  const { products, search } = useContext(ShopContext);
+const CollectionClient = ({ initialProducts }) => {
+  const { search } = useContext(ShopContext);
   const [sortType, setSortType] = useState("relevant");
   const [showFilter, setShowFilter] = useState(false);
   const [selectedMeta, setSelectedMeta] = useState([]);
-  const [visibleProducts, setVisibleProducts] = useState([]);
+  const [visibleProducts, setVisibleProducts] = useState(initialProducts);
 
   const allMeta = Array.from(
-    new Set(products.map((p) => p.meta?.[0]).filter(Boolean))
+    new Set(initialProducts.map((p) => p.meta?.[0]).filter(Boolean))
   );
 
   const toggleMeta = (value) => {
@@ -23,7 +23,7 @@ const Collection = () => {
   };
 
   useEffect(() => {
-    let copy = [...products];
+    let copy = [...initialProducts];
 
     // 🔍 Apply search
     if (search) {
@@ -42,7 +42,7 @@ const Collection = () => {
     if (sortType === "high-low") copy.sort((a, b) => b.price - a.price);
 
     setVisibleProducts(copy);
-  }, [products, sortType, selectedMeta, search]);
+  }, [initialProducts, sortType, selectedMeta, search]);
 
   return (
     <>
@@ -66,7 +66,7 @@ const Collection = () => {
           >
             <div className="flex flex-col gap-2 text-sm font-light text-gray-800 dark:text-gray-200 uppercase">
               {allMeta.map((meta) => (
-                <label className="flex gap-2" key={meta}>
+                <label className="flex gap-2 cursor-pointer" key={meta}>
                   <input
                     className="w-3"
                     type="checkbox"
@@ -85,19 +85,18 @@ const Collection = () => {
           <div className="flex justify-end text-base mb-4 sm:text-2xl">
             {/* Product Sorting */}
             <select
-              className="border border-gray-300 text-sm px-3 py-3  "
+              className="border border-gray-300 bg-transparent text-sm px-3 py-3"
               value={sortType}
               onChange={(e) => setSortType(e.target.value)}
             >
-              <option value="relavent">Sort by: Relavent</option>
-              <option value="low-high">Sort by: Low to High</option>
-              <option value="high-low">Sort by: High to Low</option>
+              <option className="text-black" value="relevant">Sort by: Relevant</option>
+              <option className="text-black" value="low-high">Sort by: Low to High</option>
+              <option className="text-black" value="high-low">Sort by: High to Low</option>
             </select>
           </div>
 
           {/* Map Products */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 gap-y-6">
-            {/* add product list */}
             {visibleProducts.map((item) => (
               <ProductItem
                 key={item._id}
@@ -114,4 +113,4 @@ const Collection = () => {
   );
 };
 
-export default Collection;
+export default CollectionClient;

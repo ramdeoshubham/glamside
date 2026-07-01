@@ -1,13 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Outfit", sans-serif;
+  --font-dancing: "Dancing Script", cursive;
+}
 
 * {
-    font-family: Outfit
+    font-family: var(--font-sans);
 }
 
 .font-dancing {
-    font-family: "Dancing Script", cursive
+    font-family: var(--font-dancing);
 }
 
 a.active hr{
@@ -21,4 +27,3 @@ a.active hr{
     }
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
