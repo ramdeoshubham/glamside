@@ -23,20 +23,44 @@ Glamside is a comprehensive e-commerce platform that features a user-friendly in
 * **Robust Data Management:** Built on top of MongoDB (with Mongoose) to reliably store and manage user profiles, product catalogs, and order histories.
 * **Media Handling:** Employs `multer` to securely process incoming form-data and pipe image uploads directly to Cloudinary.
 
+## Screenshots
+
+<p align="center">
+  <img src="screenshots/home.png" alt="Home Page" width="45%" />
+  &nbsp; &nbsp;
+  <img src="screenshots/product.png" alt="Product Page" width="45%" />
+</p>
+<p align="center">
+  <em>Left: Home Page. Right: Product Page.</em>
+</p>
+
+<p align="center">
+  <img src="screenshots/collection.png" alt="Home Screen" width="45%" />
+  &nbsp; &nbsp;
+  <img src="screenshots/cart.png" alt="Room Interface" width="45%" />
+</p>
+<p align="center">
+  <em>Left: Collection Page. Right: Cart Page.</em>
+</p>
+
+<p align="center">
+  <img src="screenshots/admin-home.png" alt="Admin Dashboard" width="45%" />
+  &nbsp; &nbsp;
+  <img src="screenshots/admin-add.png" alt="Admin Add/Edit Product" width="45%" />
+</p>
+<p align="center">
+  <em>Left: Admin Dashboard. Right: Admin Add/Edit Product.</em>
+</p>
+
+
+
 
 ## Architecture
 
 The project is built on a modern **MERN-variant stack**, utilizing Next.js for the client-facing storefront to maximize SEO, a React SPA for the admin dashboard, and a Node.js/Express backend communicating with MongoDB.
 
-```mermaid
-graph TD
-    Client[Client Frontend<br>Next.js App Router] --> |REST API + JWT| API[Backend API<br>Node.js/Express]
-    Admin[Admin Dashboard<br>React/Vite SPA] --> |REST API + Admin Token| API
-    
-    API <--> |Mongoose| DB[(MongoDB)]
-    API <--> |Uploads| Cloudinary[Cloudinary CDN]
-    Client <--> |Checkout| Razorpay[Razorpay Gateway]
-```
+<img src="screenshots/diagram.png" alt="Project Diagram" width="100%" />
+
 
 1. `/backend` - The central REST API handling business logic, database transactions, and authentication.
 2. `/frontend` - The SEO-driven Next.js client application.
