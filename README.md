@@ -2,7 +2,7 @@
 
 Glamside is a comprehensive e-commerce platform that features a user-friendly interface for browsing and purchasing products, as well as a dedicated admin panel for managing inventory and orders.
 
-> **[Live Demo](glamside.vercel.app)** (deployed using Vercel, MongoDB Atlas and Cloudinary)
+> **[Live Demo](https://glamside.vercel.app)** (deployed using Vercel, MongoDB Atlas and Cloudinary)
 
 ## Key Features
 
