@@ -35,18 +35,18 @@ Glamside is a comprehensive e-commerce platform that features a user-friendly in
 </p>
 
 <p align="center">
-  <img src="screenshots/collection.png" alt="Home Screen" width="45%" />
+  <img src="screenshots/collection.png" alt="Collection Page" width="45%" />
   &nbsp; &nbsp;
-  <img src="screenshots/cart.png" alt="Room Interface" width="45%" />
+  <img src="screenshots/cart.png" alt="Cart Page." width="45%" />
 </p>
 <p align="center">
   <em>Left: Collection Page. Right: Cart Page.</em>
 </p>
 
 <p align="center">
-  <img src="screenshots/dark-product.png" alt="Home Screen" width="45%" />
+  <img src="screenshots/dark-product.png" alt="Dark Mode Product Page" width="45%" />
   &nbsp; &nbsp;
-  <img src="screenshots/home-dark.png" alt="Room Interface" width="45%" />
+  <img src="screenshots/home-dark.png" alt="Dark Mode Home Page Section" width="45%" />
 </p>
 <p align="center">
   <em>Left: Dark Mode Product Page. Right: Dark Mode Home Page Section.</em>
